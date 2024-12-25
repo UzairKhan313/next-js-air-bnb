@@ -1,4 +1,11 @@
 import {
+  SignedOut,
+  SignedIn,
+  SignInButton,
+  SignOutButton,
+} from "@clerk/nextjs";
+
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -22,13 +29,34 @@ const LinksDropdown = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-52" align="start" sideOffset={10}>
-        {links.map((link) => (
-          <DropdownMenuItem key={link.href}>
-            <Link href={link.href} className="capitalize  w-full">
-              {link.label}
-            </Link>
+        <SignedOut>
+          <DropdownMenuItem>
+            <SignInButton>
+              <SignInButton mode="modal">
+                <button className="w-full text-left">Login</button>
+              </SignInButton>
+            </SignInButton>
           </DropdownMenuItem>
-        ))}
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <SignInButton>
+              <SignInButton mode="modal">
+                <button className="w-full text-left">Sing Up</button>
+              </SignInButton>
+            </SignInButton>
+          </DropdownMenuItem>
+        </SignedOut>
+        <SignedIn>
+          {links.map((link) => (
+            <DropdownMenuItem key={link.href}>
+              <Link href={link.href} className="capitalize  w-full">
+                {link.label}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+          <DropdownMenuSeparator />
+          <SignOutLink />
+        </SignedIn>
       </DropdownMenuContent>
     </DropdownMenu>
   );
