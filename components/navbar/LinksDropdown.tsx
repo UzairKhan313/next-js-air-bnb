@@ -1,9 +1,4 @@
-import {
-  SignedOut,
-  SignedIn,
-  SignInButton,
-  SignOutButton,
-} from "@clerk/nextjs";
+import { SignedOut, SignedIn, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 import {
   DropdownMenu,
@@ -31,31 +26,31 @@ const LinksDropdown = () => {
       <DropdownMenuContent className="w-52" align="start" sideOffset={10}>
         <SignedOut>
           <DropdownMenuItem>
-            <SignInButton>
-              <SignInButton mode="modal">
-                <button className="w-full text-left">Login</button>
-              </SignInButton>
+            <SignInButton mode="modal">
+              <button className="w-full text-left">Login</button>
             </SignInButton>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <SignInButton>
-              <SignInButton mode="modal">
-                <button className="w-full text-left">Sing Up</button>
-              </SignInButton>
-            </SignInButton>
+            <SignUpButton mode="modal">
+              <button className="w-full text-left">Register</button>
+            </SignUpButton>
           </DropdownMenuItem>
         </SignedOut>
         <SignedIn>
-          {links.map((link) => (
-            <DropdownMenuItem key={link.href}>
-              <Link href={link.href} className="capitalize  w-full">
-                {link.label}
-              </Link>
-            </DropdownMenuItem>
-          ))}
+          {links.map((link) => {
+            return (
+              <DropdownMenuItem key={link.href}>
+                <Link href={link.href} className="capitalize w-full">
+                  {link.label}
+                </Link>
+              </DropdownMenuItem>
+            );
+          })}
           <DropdownMenuSeparator />
-          <SignOutLink />
+          <DropdownMenuItem>
+            <SignOutLink />
+          </DropdownMenuItem>
         </SignedIn>
       </DropdownMenuContent>
     </DropdownMenu>
