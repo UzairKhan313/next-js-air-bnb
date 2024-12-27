@@ -1,16 +1,7 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/form/Buttons";
 import FormContainer from "@/components/form/FormContainer";
 import FormInput from "@/components/form/FormInput";
-
-const createProfileAction = async (_prevState: any, formData: FormData) => {
-  "use server";
-  const firstName = formData.get("firstName") as string;
-  console.log(firstName);
-  return { message: "Is it work." };
-};
+import { createProfileAction } from "@/utils/actions";
 
 const createProfilePage = () => {
   return (
