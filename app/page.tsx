@@ -1,13 +1,21 @@
-import { Button } from "@/components/ui/button";
+import LoadingCards from "@/components/card/LoadingCards";
+import CategoriesList from "@/components/home/CategoriesList";
+import PropertiesContainer from "@/components/home/PropertiesContainer";
+import { Suspense } from "react";
 
-const HomePage = () => {
+const HomePage = async ({
+  searchParams,
+}: {
+  searchParams: { category?: string; search: string };
+}) => {
+  const { category, search } = await searchParams;
   return (
-    <div>
-      <h1 className="text-3xl">Wellcome to Air BNB</h1>;
-      <Button variant="outline" size="lg" className="capitalize m-8">
-        click me
-      </Button>
-    </div>
+    <section>
+      <CategoriesList category={category} search={search} />
+      <Suspense fallback={<LoadingCards />}>
+        <PropertiesContainer category={category} search={search} />
+      </Suspense>
+    </section>
   );
 };
 
