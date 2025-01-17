@@ -202,6 +202,8 @@ export const fetchFavoriteId = async ({
   });
   return favorite?.id || null;
 };
+
+// Add and Remove Property to favorites list.
 export const toggleFavoriteAction = async (prevState: {
   propertyId: string;
   favoriteId: string | null;
@@ -231,6 +233,7 @@ export const toggleFavoriteAction = async (prevState: {
   }
 };
 
+// Fetching User Favorites Properties.
 export const fetchFavorites = async () => {
   const user = await getAuthUser();
   const favorites = await db.favorite.findMany({
@@ -251,4 +254,18 @@ export const fetchFavorites = async () => {
     },
   });
   return favorites.map((favorite) => favorite.property);
+};
+
+// Get Single property details.
+export const fetchPropertyDetails = async (id: string) => {
+  return db.property.findUnique({
+    where: {
+      id,
+    },
+
+    // Getting the user profile who create that Property.
+    include: {
+      profile: true,
+    },
+  });
 };
