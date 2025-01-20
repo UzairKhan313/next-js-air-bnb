@@ -1,5 +1,5 @@
 const PropertiesPage = () => {
-  return <div>Properites page</div>;
+  return <h2>Properites page</h2>;
 };
 
 export default PropertiesPage;

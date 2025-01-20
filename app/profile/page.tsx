@@ -8,6 +8,8 @@ import {
   updateProfileImageAction,
 } from "@/utils/actions";
 
+export const dynamic = "force-dynamic"; // Ensure dynamic rendering in app router
+
 const ProfilePage = async () => {
   const profile = await fetchProfile();
   return (

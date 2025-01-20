@@ -14,7 +14,11 @@ import Description from "@/components/properties/Description";
 import Amenities from "@/components/properties/Amenities";
 import MapWrapper from "@/components/properties/MapWrapper";
 
-const PropertyDetailsPage = async ({ params }: { params: { id: string } }) => {
+const PropertyDetailsPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
   const { id } = await params;
   const property = await fetchPropertyDetails(id);
 
