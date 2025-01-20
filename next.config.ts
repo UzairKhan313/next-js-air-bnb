@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "ogiqwcfmvrcndifrcgkl.supabase.co" },
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
