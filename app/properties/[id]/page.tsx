@@ -13,6 +13,10 @@ import { Separator } from "@/components/ui/separator";
 import Description from "@/components/properties/Description";
 import Amenities from "@/components/properties/Amenities";
 import MapWrapper from "@/components/properties/MapWrapper";
+import SubmitReview from "@/components/reviews/SubmitReview";
+import PropertyReviews from "@/components/reviews/PropertyReviews";
+import { findExistingReview } from "@/utils/actions";
+import { auth } from "@clerk/nextjs/server";
 
 const PropertyDetailsPage = async ({
   params,
@@ -27,6 +31,11 @@ const PropertyDetailsPage = async ({
   const details = { baths, bedrooms, beds, guests };
   const firstName = property.profile.firstName;
   const profileImage = property.profile.profileImage;
+
+  const { userId } = await auth();
+  const isNotOwner = property.profile.clerkId !== userId;
+  const reviewDoesNotExist =
+    userId && isNotOwner && !(await findExistingReview(userId, property.id));
 
   return (
     <section>
@@ -58,6 +67,9 @@ const PropertyDetailsPage = async ({
           <BookingCalender />
         </div>
       </section>
+
+      {reviewDoesNotExist && <SubmitReview propertyId={property.id} />}
+      <PropertyReviews propertyId={property.id} />
     </section>
   );
 };
